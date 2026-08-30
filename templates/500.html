@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Error del servidor | KageSan CRM{% endblock %}
+{% block content %}
+<div class="errorpage">
+  <div>
+    <div class="code">500</div>
+    <h1>Algo ha ido mal</h1>
+    <p>Estamos en ello. Vuelve a intentarlo en unos minutos.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-lg" href="{% url 'pages:home' %}">Ir al inicio</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

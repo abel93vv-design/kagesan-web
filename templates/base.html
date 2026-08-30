@@ -1,0 +1,68 @@
+{% load static seo_extras %}<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ meta_title|default:"KageSan CRM | CRM inmobiliario con matching por IA" }}{% endblock %}</title>
+  <meta name="description" content="{{ meta_description|default:'KageSan CRM: CRM inmobiliario con matching por IA, pipeline visual y gestión multi-oficina.' }}">
+  {% if STAGING %}<meta name="robots" content="noindex, nofollow">{% endif %}
+  <link rel="canonical" href="{{ SITE_BASE_URL }}{{ canonical_path|default:request.path }}">
+
+  <meta property="og:site_name" content="{{ SITE_NAME }}">
+  <meta property="og:type" content="{{ og_type|default:'website' }}">
+  <meta property="og:title" content="{{ meta_title|default:'KageSan CRM' }}">
+  <meta property="og:description" content="{{ meta_description|default:'CRM inmobiliario con matching por IA.' }}">
+  <meta property="og:url" content="{{ SITE_BASE_URL }}{{ canonical_path|default:request.path }}">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:image" content="{{ SITE_BASE_URL }}{% if og_image_path %}{{ og_image_path }}{% else %}{% static 'img/og-default.png' %}{% endif %}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ meta_title|default:'KageSan CRM' }}">
+  <meta name="twitter:description" content="{{ meta_description|default:'CRM inmobiliario con matching por IA.' }}">
+  <meta name="twitter:image" content="{{ SITE_BASE_URL }}{% if og_image_path %}{{ og_image_path }}{% else %}{% static 'img/og-default.png' %}{% endif %}">
+
+  <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+
+  <script type="application/ld+json">{{ JSONLD_ORG|jsonld }}</script>
+  <script type="application/ld+json">{{ JSONLD_WEBSITE|jsonld }}</script>
+  {% if breadcrumbs %}<script type="application/ld+json">{{ breadcrumbs|breadcrumb_jsonld|jsonld }}</script>{% endif %}
+  {% for block in jsonld %}<script type="application/ld+json">{{ block|jsonld }}</script>{% endfor %}
+  {% block extra_head %}{% endblock %}
+  {% if ANALYTICS_ENABLED and ANALYTICS_GA4_ID %}{% include "includes/analytics.html" %}{% endif %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  {% if STAGING %}<div class="staging-banner">Entorno de pruebas de KageSan CRM — esta versión no se indexa.</div>{% endif %}
+  {% include "includes/icons.html" %}
+  {% include "includes/header.html" %}
+
+  {% if breadcrumbs %}{% include "includes/breadcrumbs.html" %}{% endif %}
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "includes/footer.html" %}
+
+  <script>
+  (function(){
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function(el, i){ el.style.transitionDelay = (i % 4) * 60 + 'ms'; io.observe(el); });
+  })();
+  </script>
+  {% block extra_body %}{% endblock %}
+</body>
+</html>

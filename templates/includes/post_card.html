@@ -1,0 +1,14 @@
+{% load static %}
+<article class="post-card" data-reveal>
+  {% if post.cover_image %}
+    <img class="thumb" src="{{ post.cover_image.url }}" alt="{{ post.cover_image_alt|default:post.title }}" width="640" height="360" loading="lazy">
+  {% else %}
+    <span class="thumb thumb-ph" aria-hidden="true"></span>
+  {% endif %}
+  <div class="body">
+    <span class="cat">{{ post.category.name }}</span>
+    <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <p>{{ post.excerpt|truncatewords:24 }}</p>
+    <span class="meta">{{ post.published_at|date:"j F Y" }} &middot; {{ post.reading_time }} min de lectura</span>
+  </div>
+</article>

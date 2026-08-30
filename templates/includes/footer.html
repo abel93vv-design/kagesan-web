@@ -1,0 +1,58 @@
+{% load static %}
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="fbrand">
+        <img src="{% static 'img/logo-mark.png' %}" alt="" width="28" height="28">
+        <span>KageSan CRM</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <a class="btn btn-accent" href="{{ APP_URL }}" rel="nofollow">Empezar gratis</a>
+        {% if SOCIAL_LINKEDIN or SOCIAL_INSTAGRAM %}
+        <div class="social">
+          {% if SOCIAL_INSTAGRAM %}<a href="{{ SOCIAL_INSTAGRAM }}" rel="noopener" target="_blank" aria-label="Instagram de KageSan CRM"><svg width="18" height="18"><use href="#i-instagram"/></svg></a>{% endif %}
+          {% if SOCIAL_LINKEDIN %}<a href="{{ SOCIAL_LINKEDIN }}" rel="noopener" target="_blank" aria-label="LinkedIn de KageSan CRM"><svg width="18" height="18"><use href="#i-linkedin"/></svg></a>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="fgrid">
+      <div>
+        <h4>Producto</h4>
+        {% for item in NAV_PRODUCT %}<a href="{% url 'pages:pillar' item.slug %}">{{ item.label }}</a>{% endfor %}
+        <a href="{% url 'pages:precios' %}">Precios</a>
+      </div>
+      <div>
+        <h4>Soluciones</h4>
+        {% for item in NAV_SEGMENTS %}<a href="{% url 'pages:segment' item.slug %}">{{ item.label }}</a>{% endfor %}
+        <a href="{% url 'pages:demo' %}">Solicitar una demo</a>
+      </div>
+      <div>
+        <h4>Recursos</h4>
+        <a href="{% url 'blog:index' %}">Blog</a>
+        <a href="{% url 'blog:categories' %}">Categorías del blog</a>
+        <a href="{% url 'pages:glosario' %}">Glosario</a>
+        <a href="{% url 'blog:author' %}">Equipo KageSan</a>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <a href="{% url 'pages:sobre' %}">Sobre KageSan CRM</a>
+        <a href="{% url 'pages:contacto' %}">Contacto</a>
+        <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>
+        {% if CONTACT_PHONE_TEL %}<a href="tel:{{ CONTACT_PHONE_TEL }}">{{ CONTACT_PHONE_DISPLAY }}</a>{% endif %}
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="{% url 'pages:aviso-legal' %}">Aviso legal</a>
+        <a href="{% url 'pages:privacidad' %}">Política de privacidad</a>
+        <a href="{% url 'pages:cookies' %}">Política de cookies</a>
+      </div>
+    </div>
+
+    <div class="fbot">
+      <span>Copyright &copy; {{ CURRENT_YEAR }} &middot; KageSan CRM</span>
+      <span>CRM inmobiliario con matching por IA</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,4 @@
+-r requirements.txt
+
+# Herramientas solo de desarrollo. Los tests usan el runner de Django (stdlib).
+# Añade aquí lo que necesites en local (django-debug-toolbar, etc.).

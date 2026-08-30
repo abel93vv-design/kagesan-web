@@ -1,0 +1,13 @@
+{% load static %}
+<section class="section-tight">
+  <div class="wrap">
+    <div class="cta-band" data-reveal>
+      <h2>{{ cta_title|default:"Prueba KageSan CRM gratis" }}</h2>
+      <p>{{ cta_text|default:"Digitaliza tu agencia sin cambiar tu forma de trabajar. Empieza con el plan Free o mira una demo guiada." }}</p>
+      <div class="hero-cta" style="justify-content:center">
+        <a class="btn btn-accent btn-lg" href="{{ APP_URL }}" rel="nofollow">Empezar gratis</a>
+        <a class="btn btn-ghost btn-lg" href="{% url 'pages:demo' %}">Solicitar una demo</a>
+      </div>
+    </div>
+  </div>
+</section>

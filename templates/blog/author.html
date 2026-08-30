@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <div class="author-head" data-reveal>
+      {% if author.photo %}
+        <img src="{{ author.photo.url }}" alt="{{ author.display_name }}" width="120" height="120">
+      {% else %}
+        <img src="{% static 'img/logo-mark.png' %}" alt="" width="120" height="120" style="padding:24px;background:var(--bg-soft)">
+      {% endif %}
+      <div>
+        <h1 style="font-size:clamp(1.9rem,4vw,2.6rem)">{{ author.display_name }}</h1>
+        <p class="role">{{ author.role }}</p>
+        {% if author.linkedin_url %}
+          <p style="margin-top:.4rem"><a href="{{ author.linkedin_url }}" rel="noopener" target="_blank">LinkedIn</a></p>
+        {% endif %}
+      </div>
+    </div>
+    {% if author.bio %}<p class="lead" style="margin-top:1.6rem">{{ author.bio }}</p>{% endif %}
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 data-reveal>Artículos de {{ author.display_name }}</h2>
+    {% if posts %}
+      <div class="post-grid">
+        {% for post in posts %}{% include "includes/post_card.html" %}{% endfor %}
+      </div>
+    {% else %}
+      <p>Aún no hay artículos publicados.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% include "includes/cta_band.html" %}
+{% endblock %}

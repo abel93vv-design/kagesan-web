@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Sobre KageSan CRM</p>
+    <h1 data-reveal>Un CRM pensado para el sector inmobiliario, no adaptado a la fuerza</h1>
+    <p class="lead" data-reveal>KageSan CRM nace para resolver un problema concreto de las agencias: gestionar una cartera viva de propiedades y clientes sin depender de hojas de cálculo, WhatsApp y la memoria de cada agente.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap prose">
+    <h2>Qué es KageSan CRM</h2>
+    <p>Es un CRM inmobiliario (software como servicio) para el mercado español. Centraliza la cartera de propiedades, la de clientes, el proceso comercial y el equipo en una sola plataforma, con permisos por oficina o rol.</p>
+
+    <h2>Cómo aborda la gestión inmobiliaria</h2>
+    <ul>
+      <li><strong>Matching por IA:</strong> cruza el score financiero y las preferencias de cada cliente con la cartera disponible y prioriza las coincidencias con más probabilidad de cierre.</li>
+      <li><strong>Pipeline visual:</strong> cada oportunidad avanza por etapas en un tablero tipo Kanban, con recordatorios y automatizaciones para que nada se quede sin seguimiento.</li>
+      <li><strong>Multi-oficina:</strong> varias sedes sobre un mismo sistema, con visibilidad consolidada para dirección y matching entre oficinas.</li>
+      <li><strong>Integraciones:</strong> portales, WhatsApp, email y web propia alimentando un único CRM, con API para integraciones a medida.</li>
+    </ul>
+
+    <h2>Para quién</h2>
+    <p>Desde un <a href="{% url 'pages:segment' 'crm-para-agentes-inmobiliarios-independientes' %}">agente independiente</a> que quiere dejar el Excel, hasta <a href="{% url 'pages:segment' 'crm-para-agencias-inmobiliarias' %}">agencias</a> con varios equipos y <a href="{% url 'pages:segment' 'crm-para-franquicias-inmobiliarias' %}">redes y franquicias multi-oficina</a>. Los planes escalan sin necesidad de migrar de sistema.</p>
+
+    <h2>Empieza cuando quieras</h2>
+    <p>El plan Free permite digitalizar tu cartera actual sin coste (50 propiedades y 25 clientes). Puedes ver los <a href="{% url 'pages:precios' %}">planes y precios</a> o <a href="{% url 'pages:demo' %}">pedir una demo</a>.</p>
+  </div>
+</section>
+
+{% include "includes/cta_band.html" %}
+{% endblock %}

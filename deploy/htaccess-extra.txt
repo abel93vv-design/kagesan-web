@@ -1,0 +1,54 @@
+# ===========================================================================
+# Bloque para AÑADIR al .htaccess del docroot de kagesancrm.com (ENCIMA del
+# bloque que genera cPanel para Passenger). NO sustituye al de Passenger.
+#
+# Hace, en un solo salto 301:
+#   - http  -> https
+#   - www   -> sin www
+# Excluye /.well-known/ (validaciones ACME / AutoSSL).
+# ===========================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # No tocar /.well-known/ (AutoSSL, verificaciones de dominio...)
+    RewriteRule ^\.well-known/ - [L]
+
+    # Forzar https + dominio canónico sin www (un único redirect 301)
+    RewriteCond %{HTTPS} !=on [OR]
+    RewriteCond %{HTTP_HOST} ^www\.kagesancrm\.com$ [NC]
+    RewriteRule ^ https://kagesancrm.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# --- Bloquea acceso a archivos sensibles ----------------------------------
+RedirectMatch 404 (?i)/\.(git|env|htpasswd)(/|$)
+RedirectMatch 404 (?i)/(\.cpanel\.yml|passenger_wsgi\.py|manage\.py|requirements[^/]*\.txt|db\.sqlite3)$
+RedirectMatch 404 (?i)/(config|core|apps|deploy|_content_src)/.*\.py$
+
+# --- Cabeceras de seguridad ----------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "same-origin"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    # HSTS: actívalo solo cuando AutoSSL esté funcionando de forma estable.
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# --- Archivos SEO servidos como estáticos -------------------------------
+# robots.txt, sitemap.xml y llms.txt existen como archivos reales en la raíz
+# (los genera 'manage.py generate_seo'). Apache los sirve directamente sin
+# pasar por la app. Si se borran, Django los regenera bajo /robots.txt, etc.
+
+# --- Compresión y cache de estáticos -----------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType image/webp "access plus 30 days"
+</IfModule>

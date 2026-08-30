@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap"><p class="kicker">Legal</p><h1>Política de cookies</h1></div>
+</header>
+
+<section>
+  <div class="wrap prose">
+    <p class="updated">Última actualización: {{ CURRENT_YEAR }}. <strong>Borrador pendiente de revisión legal antes de publicar.</strong></p>
+
+    <h2>1. Qué son las cookies</h2>
+    <p>Una cookie es un pequeño archivo de texto que un sitio web guarda en tu navegador para recordar información sobre tu visita.</p>
+
+    <h2>2. Cookies que utiliza este sitio</h2>
+    <p><strong>Técnicas y necesarias.</strong> Este sitio usa únicamente cookies estrictamente necesarias para su funcionamiento (por ejemplo, la cookie de sesión y la de protección CSRF que genera el formulario). No requieren consentimiento.</p>
+    <p><strong>Analíticas.</strong> Solo se cargan si se activa la analítica (Google Analytics 4) y después de obtener tu consentimiento. Por defecto están desactivadas. [COMPLETAR cuando se active: proveedor, finalidad y plazo de conservación.]</p>
+
+    <h2>3. Gestión de cookies</h2>
+    <p>Puedes permitir, bloquear o eliminar las cookies instaladas en tu equipo desde la configuración de tu navegador. Si desactivas las cookies técnicas, es posible que algunas funciones (como el envío de formularios) no funcionen correctamente.</p>
+
+    <h2>4. Cambios</h2>
+    <p>Esta política puede actualizarse si cambian las cookies utilizadas. Te recomendamos revisarla periódicamente.</p>
+
+    <p>Consulta también la <a href="{% url 'pages:privacidad' %}">política de privacidad</a>.</p>
+  </div>
+</section>
+{% endblock %}

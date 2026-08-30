@@ -1,0 +1,17 @@
+{% if page_obj.paginator.num_pages > 1 %}
+<nav class="pagination" aria-label="Paginación">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">&laquo; Anterior</a>
+  {% endif %}
+  {% for n in page_obj.paginator.page_range %}
+    {% if n == page_obj.number %}
+      <span class="current">{{ n }}</span>
+    {% else %}
+      <a href="?page={{ n }}">{{ n }}</a>
+    {% endif %}
+  {% endfor %}
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Siguiente &raquo;</a>
+  {% endif %}
+</nav>
+{% endif %}

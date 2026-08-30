@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Recursos</p>
+    <h1 data-reveal>Glosario de CRM inmobiliario</h1>
+    <p class="lead" data-reveal>Los términos clave de CRM y tecnología inmobiliaria, explicados en simple. Página de referencia; la ampliamos periódicamente.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap prose">
+    <dl class="glossary">
+      {% for t in terms %}
+      <div class="glossary-item" id="{{ t.term|slugify }}" data-reveal>
+        <dt>{{ t.term }}</dt>
+        <dd>
+          {{ t.definition }}
+          {% if t.link %} <a class="link" href="{{ t.link }}">Saber más</a>{% endif %}
+        </dd>
+      </div>
+      {% endfor %}
+    </dl>
+  </div>
+</section>
+
+{% include "includes/cta_band.html" %}
+{% endblock %}

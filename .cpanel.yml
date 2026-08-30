@@ -1,0 +1,31 @@
+---
+# Se ejecuta al pulsar "Deploy HEAD Commit" en cPanel > Git Version Control.
+#
+# Requisito para que sea simple y fiable: en cPanel, el "Repository Path" debe
+# ser LA MISMA carpeta que el "Application root" de la app de Python
+# (por ejemplo /home/<USUARIO>/kagesancrm.com o /home/<USUARIO>/public_html).
+# Así el deploy se ejecuta ya dentro del docroot y no hace falta copiar nada.
+#
+# El venv de "Setup Python App" vive en:
+#   /home/<USUARIO>/virtualenv/<basename del Application root>/<X.Y>/bin
+# Aquí se detecta solo (no hace falta editar rutas).
+deployment:
+  tasks:
+    - >
+      export DEPLOYPATH="${DEPLOYPATH:-$PWD}" &&
+      export APPNAME="$(basename "$DEPLOYPATH")" &&
+      if [ "$PWD" != "$DEPLOYPATH" ]; then /bin/cp -Rf ./ "$DEPLOYPATH"/ && cd "$DEPLOYPATH"; fi &&
+      PYBIN="" &&
+      for d in "$HOME/virtualenv/$APPNAME"/*/bin; do [ -x "$d/python" ] && PYBIN="$d"; done &&
+      if [ -z "$PYBIN" ]; then echo "No se encontró el virtualenv de la app en $HOME/virtualenv/$APPNAME/*/bin"; exit 1; fi &&
+      echo "Usando venv: $PYBIN" &&
+      "$PYBIN/pip" install --upgrade pip &&
+      "$PYBIN/pip" install -r requirements.txt &&
+      "$PYBIN/python" manage.py migrate --noinput &&
+      "$PYBIN/python" manage.py create_admin &&
+      "$PYBIN/python" manage.py seed_content --publish &&
+      "$PYBIN/python" manage.py collectstatic --noinput &&
+      "$PYBIN/python" manage.py generate_seo &&
+      { "$PYBIN/python" manage.py check --deploy || true; } &&
+      /bin/mkdir -p "$DEPLOYPATH/tmp" &&
+      /bin/touch "$DEPLOYPATH/tmp/restart.txt"

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Blog</p>
+    <h1 data-reveal>CRM inmobiliario, matching e IA para agencias</h1>
+    <p class="lead" data-reveal>Guías prácticas del equipo de KageSan CRM sobre gestión de leads, matching y digitalización de agencias.</p>
+    <div class="chips">
+      <a class="chip" href="{% url 'blog:index' %}" aria-current="page">Todos</a>
+      {% for c in categories %}
+        <a class="chip" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    {% if posts %}
+      <div class="post-grid">
+        {% for post in posts %}{% include "includes/post_card.html" %}{% endfor %}
+      </div>
+      {% include "blog/_pagination.html" %}
+    {% else %}
+      <p>Pronto publicaremos los primeros artículos.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% include "includes/cta_band.html" %}
+{% endblock %}

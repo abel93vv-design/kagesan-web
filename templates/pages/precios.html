@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Precios</p>
+    <h1 data-reveal>Planes que escalan con tu agencia</h1>
+    <p class="lead" data-reveal>Empieza gratis y cambia de plan cuando lo necesites, sin perder tu histórico. El matching por IA está incluido en todos los planes.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="pricing">
+      {% for plan in plans %}
+      <div class="price-card{% if plan.highlighted %} featured{% endif %}" data-reveal>
+        {% if plan.highlighted %}<span class="badge">El más elegido</span>{% endif %}
+        <h3>{{ plan.name }}</h3>
+        <p class="price">
+          {% if plan.price_eur is not None %}
+            <span class="amount">{{ plan.price_eur }} €</span><span class="per">{{ plan.period }}</span>
+          {% else %}
+            <span class="amount">A medida</span>
+          {% endif %}
+        </p>
+        <p class="price-tag">{{ plan.tagline }}</p>
+        <ul>
+          {% for h in plan.highlights %}<li><svg width="16" height="16"><use href="#i-check"/></svg> {{ h }}</li>{% endfor %}
+        </ul>
+        {% if plan.cta_kind == "contact" %}
+          <a class="btn btn-ghost btn-lg" href="{% url 'pages:contacto' %}">{{ plan.cta }}</a>
+        {% else %}
+          <a class="btn {% if plan.highlighted %}btn-accent{% else %}btn-primary{% endif %} btn-lg" href="{{ APP_URL }}" rel="nofollow">{{ plan.cta }}</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <p class="form-note" style="text-align:center;margin-top:1.4rem">Importes de referencia del producto. [Pendiente: confirmar si incluyen IVA antes de publicar.]</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="kicker">Comparativa</p>
+      <h2>Qué incluye cada plan</h2>
+    </div>
+    <div class="table-wrap" data-reveal>
+      <table class="cmp">
+        <thead>
+          <tr><th></th>{% for plan in plans %}<th>{{ plan.name }}</th>{% endfor %}</tr>
+        </thead>
+        <tbody>
+          {% for row in plan_table %}
+          <tr>
+            <th scope="row">{{ row.label }}</th>
+            {% for v in row.values %}<td>{{ v }}</td>{% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="kicker">Preguntas frecuentes</p>
+      <h2>Sobre los planes y el precio</h2>
+    </div>
+    <div class="faq">
+      {% for f in precios_faqs %}
+      <details class="faq-item" data-reveal><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "includes/cta_band.html" %}
+{% endblock %}

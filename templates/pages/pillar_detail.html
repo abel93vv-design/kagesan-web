@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>{{ p.hero_kicker }}</p>
+    <h1 data-reveal>{{ p.hero_title }}</h1>
+    <p class="lead" data-reveal>{{ p.hero_intro }}</p>
+    <div class="hero-cta" data-reveal style="margin-top:1.6rem">
+      <a class="btn btn-accent btn-lg" href="{{ APP_URL }}" rel="nofollow">Empezar gratis</a>
+      <a class="btn btn-ghost btn-lg" href="#faq">Ver preguntas frecuentes</a>
+    </div>
+  </div>
+</header>
+
+{% if p.notice %}
+<section class="section-tight">
+  <div class="wrap"><p class="notice" data-reveal>{{ p.notice }}</p></div>
+</section>
+{% endif %}
+
+{% for sec in p.sections %}
+<section{% if forloop.counter0|divisibleby:2 %}{% else %} class="band"{% endif %}>
+  <div class="wrap prose">
+    <h2 data-reveal>{{ sec.heading }}</h2>
+    {% for para in sec.body %}<p data-reveal>{{ para }}</p>{% endfor %}
+    {% if sec.bullets %}
+      <ul data-reveal>
+        {% for b in sec.bullets %}<li>{{ b }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+    {% for para in sec.body_after %}<p data-reveal>{{ para }}</p>{% endfor %}
+  </div>
+</section>
+{% endfor %}
+
+{% if p.features %}
+<section class="band">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Cómo funciona</p>
+    <h2 data-reveal>{{ p.features_heading }}</h2>
+    <div class="cards {% if p.features|length == 3 %}cols-3{% elif p.features|length == 4 %}cols-2{% endif %}">
+      {% for f in p.features %}
+      <div class="card" data-reveal>
+        <div class="ico"><svg><use href="#i-check"/></svg></div>
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if p.table %}
+<section>
+  <div class="wrap">
+    <h2 data-reveal>{{ p.table.heading }}</h2>
+    <div class="table-wrap" data-reveal>
+      <table class="cmp">
+        <thead><tr>{% for h in p.table.head %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+        <tbody>
+          {% for row in p.table.rows %}
+          <tr>{% for cell in row %}{% if forloop.first %}<th scope="row">{{ cell }}</th>{% else %}<td>{{ cell }}</td>{% endif %}{% endfor %}</tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if p.includes %}
+<section>
+  <div class="wrap">
+    <p class="kicker" data-reveal>Incluye</p>
+    <h2 data-reveal>Qué entra</h2>
+    <div class="incl">
+      {% for item in p.includes %}
+      <div><svg width="18" height="18"><use href="#i-check"/></svg> {{ item }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if p.audience %}
+<section class="band">
+  <div class="wrap prose">
+    <h2 data-reveal>{{ p.audience_heading }}</h2>
+    <ul data-reveal>
+      {% for a in p.audience %}<li>{{ a }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+<section id="faq">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Preguntas frecuentes</p>
+    <h2 data-reveal>{{ p.name }}: dudas habituales</h2>
+    <div class="faq">
+      {% for f in p.faqs %}
+      <details class="faq-item" data-reveal><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% with cta_title=p.cta_title cta_text=p.cta_text %}{% include "includes/cta_band.html" %}{% endwith %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Blog &middot; categoría</p>
+    <h1 data-reveal>{{ category.name }}</h1>
+    {% if category.intro %}<p class="lead" data-reveal>{{ category.intro }}</p>{% endif %}
+    <div class="chips">
+      <a class="chip" href="{% url 'blog:index' %}">Todos</a>
+      {% for c in categories %}
+        <a class="chip" href="{{ c.get_absolute_url }}"{% if c.pk == category.pk %} aria-current="page"{% endif %}>{{ c.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    {% if posts %}
+      <div class="post-grid">
+        {% for post in posts %}{% include "includes/post_card.html" %}{% endfor %}
+      </div>
+      {% include "blog/_pagination.html" %}
+    {% else %}
+      <p>Aún no hay artículos publicados en esta categoría.</p>
+    {% endif %}
+    {% if category.core_url %}
+      <p style="margin-top:26px"><a class="link" href="{{ category.core_url }}">Ver la página de producto relacionada</a></p>
+    {% endif %}
+  </div>
+</section>
+
+{% include "includes/cta_band.html" %}
+{% endblock %}

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+build/
+dist/
+
+# Entornos
+.venv/
+venv/
+env/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+/media/
+/staticfiles/
+/data/
+
+# Configuración local
+.env
+!.env.example
+
+# Archivos SEO generados (se regeneran con: manage.py generate_seo)
+/robots.txt
+/sitemap.xml
+/llms.txt
+
+# Editores / SO
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Passenger
+/tmp/

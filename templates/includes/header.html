@@ -1,0 +1,42 @@
+{% load static %}
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="{% url 'pages:home' %}" aria-label="KageSan CRM, inicio">
+      <img src="{% static 'img/logo-mark.png' %}" alt="" width="28" height="28">
+      <span>KageSan<span class="brand-crm"> CRM</span></span>
+    </a>
+
+    <input type="checkbox" id="nav-check" aria-hidden="true">
+    <nav class="navlinks" aria-label="Principal">
+      <div class="navgroup">
+        <button type="button" class="navgroup-btn" aria-haspopup="true">Producto</button>
+        <div class="navsub">
+          {% for item in NAV_PRODUCT %}
+            <a href="{% url 'pages:pillar' item.slug %}">{{ item.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="navgroup">
+        <button type="button" class="navgroup-btn" aria-haspopup="true">Soluciones</button>
+        <div class="navsub">
+          {% for item in NAV_SEGMENTS %}
+            <a href="{% url 'pages:segment' item.slug %}">{{ item.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <a href="{% url 'pages:precios' %}"{% if request.path == '/precios' %} aria-current="page"{% endif %}>Precios</a>
+      <a href="{% url 'blog:index' %}"{% if '/blog' in request.path %} aria-current="page"{% endif %}>Blog</a>
+      <a href="{% url 'pages:demo' %}"{% if request.path == '/demo' %} aria-current="page"{% endif %}>Demo</a>
+      <a class="cta-in-menu" href="{{ APP_URL }}" rel="nofollow">Empezar gratis</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a class="btn-link-login" href="{{ APP_URL }}" rel="nofollow">Iniciar sesión</a>
+      <a class="btn btn-accent" href="{{ APP_URL }}" rel="nofollow">Empezar gratis</a>
+    </div>
+
+    <label class="menu-toggle" for="nav-check" aria-label="Abrir menú">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </label>
+  </div>
+</header>

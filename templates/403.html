@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Acceso no permitido | KageSan CRM{% endblock %}
+{% block content %}
+<div class="errorpage">
+  <div>
+    <div class="code">403</div>
+    <h1>No tienes acceso a esta página</h1>
+    <p>Si crees que es un error, escríbenos.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-lg" href="{% url 'pages:home' %}">Ir al inicio</a>
+      <a class="btn btn-ghost btn-lg" href="{% url 'pages:contacto' %}">Contacto</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

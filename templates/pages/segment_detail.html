@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>{{ s.hero_kicker }}</p>
+    <h1 data-reveal>{{ s.hero_title }}</h1>
+    <p class="lead" data-reveal>{{ s.hero_intro }}</p>
+    <div class="hero-cta" data-reveal style="margin-top:1.6rem">
+      <a class="btn btn-accent btn-lg" href="{{ APP_URL }}" rel="nofollow">Empezar gratis</a>
+      <a class="btn btn-ghost btn-lg" href="{% url 'pages:demo' %}">Solicitar una demo</a>
+    </div>
+  </div>
+</header>
+
+{% if s.problems %}
+<section>
+  <div class="wrap prose">
+    <h2 data-reveal>{{ s.problems_heading }}</h2>
+    <ul data-reveal>
+      {% for prob in s.problems %}<li>{{ prob }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+<section class="band">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Cómo te ayuda</p>
+    <h2 data-reveal>{{ s.features_heading }}</h2>
+    <div class="cards {% if s.features|length == 3 %}cols-3{% elif s.features|length == 4 %}cols-2{% endif %}">
+      {% for f in s.features %}
+      <div class="card" data-reveal>
+        <div class="ico"><svg><use href="#i-check"/></svg></div>
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% for sec in s.sections %}
+<section>
+  <div class="wrap prose">
+    <h2 data-reveal>{{ sec.heading }}</h2>
+    {% for para in sec.body %}<p data-reveal>{{ para }}</p>{% endfor %}
+    {% if sec.bullets %}<ul data-reveal>{% for b in sec.bullets %}<li>{{ b }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+</section>
+{% endfor %}
+
+<section id="faq" class="band">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Preguntas frecuentes</p>
+    <h2 data-reveal>Dudas habituales</h2>
+    <div class="faq">
+      {% for f in s.faqs %}
+      <details class="faq-item" data-reveal><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% with cta_title=s.cta_title cta_text=s.cta_text %}{% include "includes/cta_band.html" %}{% endwith %}
+{% endblock %}

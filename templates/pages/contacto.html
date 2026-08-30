@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Contacto</p>
+    <h1 data-reveal>Hablemos de tu agencia</h1>
+    <p class="lead" data-reveal>Dudas sobre KageSan CRM, planes o integraciones. Te respondemos lo antes posible.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap-narrow">
+    {% if enviado %}
+      <p class="alert-ok" role="status">Gracias por escribirnos. Hemos recibido tu mensaje y te responderemos lo antes posible.</p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+      <ul class="errorlist" style="margin-bottom:1rem">
+        {% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    <form class="inmo" method="post" novalidate>
+      {% csrf_token %}
+      {{ form.iniciado }}
+      <div class="hp-field" aria-hidden="true">
+        <label for="{{ form.website.id_for_label }}">{{ form.website.label }}</label>
+        {{ form.website }}
+      </div>
+
+      <div class="full">
+        <label for="{{ form.nombre.id_for_label }}">{{ form.nombre.label }} *</label>
+        {{ form.nombre }}
+        {{ form.nombre.errors }}
+      </div>
+      <div>
+        <label for="{{ form.email.id_for_label }}">{{ form.email.label }} *</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+      <div>
+        <label for="{{ form.empresa.id_for_label }}">{{ form.empresa.label }}</label>
+        {{ form.empresa }}
+        {{ form.empresa.errors }}
+      </div>
+      <div class="full">
+        <label for="{{ form.mensaje.id_for_label }}">{{ form.mensaje.label }} *</label>
+        {{ form.mensaje }}
+        {{ form.mensaje.errors }}
+      </div>
+      <div class="full checkbox">
+        {{ form.consentimiento }}
+        <label for="{{ form.consentimiento.id_for_label }}" style="font-family:inherit;font-weight:400;margin:0">
+          He leído y acepto la <a href="{% url 'pages:privacidad' %}">política de privacidad</a>.
+        </label>
+      </div>
+      {{ form.consentimiento.errors }}
+      <div class="full">
+        <button class="btn btn-primary btn-lg" type="submit">Enviar</button>
+        <p class="form-note">También puedes escribirnos a <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>{% if CONTACT_PHONE_TEL %} o llamar al <a href="tel:{{ CONTACT_PHONE_TEL }}">{{ CONTACT_PHONE_DISPLAY }}</a>{% endif %}.</p>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+<!-- GA4: se carga solo si ANALYTICS_ENABLED=true y hay ANALYTICS_GA4_ID.
+     Añade aquí tu gestión de consentimiento antes de activarlo en producción. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ ANALYTICS_GA4_ID }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ ANALYTICS_GA4_ID }}', { anonymize_ip: true });
+</script>

@@ -1,0 +1,9 @@
+<nav class="breadcrumbs wrap" aria-label="Migas de pan">
+  <ol>
+    {% for name, path in breadcrumbs %}
+      <li>
+        {% if path %}<a href="{{ path }}">{{ name }}</a>{% else %}<span aria-current="page">{{ name }}</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</nav>

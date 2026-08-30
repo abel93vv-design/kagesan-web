@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker" data-reveal>Blog</p>
+    <h1 data-reveal>Categorías del blog</h1>
+    <p class="lead" data-reveal>Explora los artículos por tema.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="cards cols-2">
+      {% for c in categories %}
+      <div class="card" data-reveal>
+        <h3><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></h3>
+        <p>{{ c.intro|default:c.tagline }}</p>
+        <a class="link" href="{{ c.get_absolute_url }}">Ver artículos ({{ c.published_posts.count }})</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "includes/cta_band.html" %}
+{% endblock %}
