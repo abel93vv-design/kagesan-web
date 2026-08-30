@@ -9,11 +9,11 @@ Checklist **sin terminal**. Datos de esta cuenta:
 
 ## 0. Subir el código a GitHub (una sola vez)
 
-Repo **privado** `abel93vv-design/kagesancrm-web`. Desde tu equipo, en la
+Repo **privado** `abel93vv-design/kagesan-web`. Desde tu equipo, en la
 carpeta del proyecto (el repo local ya está inicializado y con un commit):
 
 ```bash
-git remote add origin git@github.com:abel93vv-design/kagesancrm-web.git
+git remote add origin git@github.com:abel93vv-design/kagesan-web.git
 git push -u origin main
 ```
 
@@ -22,7 +22,7 @@ Para que cPanel pueda clonar un repo **privado**:
   (sin passphrase). Pulsa **View/Download** en la clave y copia la **clave pública**.
 - En GitHub: repo → **Settings → Deploy keys → Add deploy key** → pega la clave
   pública. **Sin** marcar "Allow write access".
-- Usa la **Clone URL SSH** (`git@github.com:abel93vv-design/kagesancrm-web.git`)
+- Usa la **Clone URL SSH** (`git@github.com:abel93vv-design/kagesan-web.git`)
   en el paso 4.
 
 ## 1. Dar de alta el dominio
@@ -57,7 +57,7 @@ Banahosting) antes de continuar con AutoSSL.
 
 1. cPanel → **Git Version Control** → **Create**.
 2. **Clone a Repository**: activado. **Clone URL**:
-   `git@github.com:abel93vv-design/kagesancrm-web.git`.
+   `git@github.com:abel93vv-design/kagesan-web.git`.
 3. **Repository Path**: **la MISMA carpeta que el Application root del paso 3**
    → `/home/nivngtjs/kagesancrm.com`.
 4. **Create**. cPanel clona el repo dentro de esa carpeta.
